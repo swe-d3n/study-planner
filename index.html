@@ -458,25 +458,36 @@
 
         function FocusTimer({ onSessionComplete }) {
             const [isRunning, setIsRunning] = useState(false);
-            const [seconds, setSeconds] = useState(0);
+            const [elapsedSeconds, setElapsedSeconds] = useState(0);
+            const [startTime, setStartTime] = useState(null);
             const intervalRef = useRef(null);
 
             useEffect(() => {
                 if (isRunning) {
+                    // Store the start time when timer begins
+                    if (!startTime) {
+                        setStartTime(Date.now() - (elapsedSeconds * 1000));
+                    }
+
+                    // Update display every 100ms for smooth counting
+                    // Calculate elapsed time based on actual timestamps (immune to throttling)
                     intervalRef.current = setInterval(() => {
-                        setSeconds(s => s + 1);
-                    }, 1000);
+                        const now = Date.now();
+                        const elapsed = Math.floor((now - (startTime || now)) / 1000);
+                        setElapsedSeconds(elapsed);
+                    }, 100);
                 } else {
                     if (intervalRef.current) {
                         clearInterval(intervalRef.current);
                     }
                 }
+                
                 return () => {
                     if (intervalRef.current) {
                         clearInterval(intervalRef.current);
                     }
                 };
-            }, [isRunning]);
+            }, [isRunning, startTime]);
 
             const formatTime = (totalSeconds) => {
                 const hours = Math.floor(totalSeconds / 3600);
@@ -485,12 +496,21 @@
                 return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             };
 
+            const handleToggle = () => {
+                if (!isRunning) {
+                    // Starting - set the start time
+                    setStartTime(Date.now() - (elapsedSeconds * 1000));
+                }
+                setIsRunning(!isRunning);
+            };
+
             const handleStop = () => {
-                if (seconds > 0) {
-                    onSessionComplete(seconds);
+                if (elapsedSeconds > 0) {
+                    onSessionComplete(elapsedSeconds);
                 }
                 setIsRunning(false);
-                setSeconds(0);
+                setElapsedSeconds(0);
+                setStartTime(null);
             };
 
             return (
@@ -498,16 +518,17 @@
                     <div className="flex items-center justify-between">
                         <div>
                             <h2 className="text-xl font-bold mb-2">Focus Session</h2>
-                            <div className="text-4xl font-mono font-bold">{formatTime(seconds)}</div>
+                            <div className="text-4xl font-mono font-bold">{formatTime(elapsedSeconds)}</div>
+                            <p className="text-sm text-white/70 mt-1">Timer keeps running even when app is in background</p>
                         </div>
                         <div className="flex gap-3">
                             <button
-                                onClick={() => setIsRunning(!isRunning)}
+                                onClick={handleToggle}
                                 className="bg-white/20 hover:bg-white/30 backdrop-blur p-4 rounded-full transition-all"
                             >
                                 {isRunning ? <Pause /> : <Play />}
                             </button>
-                            {seconds > 0 && (
+                            {elapsedSeconds > 0 && (
                                 <button
                                     onClick={handleStop}
                                     className="bg-white/20 hover:bg-white/30 backdrop-blur px-6 py-2 rounded-full transition-all font-medium"
