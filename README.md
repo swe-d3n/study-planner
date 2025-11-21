@@ -10,6 +10,7 @@ An app i vibecoded to help me keep track of my work
 - Fix wrong overdue counter (timezone error)
 - Add focus session timer to Analytics Tab
 - Increase number of tasks displayed in calendar (currently 2)
+- Save's timer when you switch tabs, add delete time button
 
 1\.0\.2 - 2025/11/20 - bugfixes
 
