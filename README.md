@@ -6,11 +6,17 @@ An app i vibecoded to help me keep track of my work
 
 ## Updates
 
-1\.0\.1 - bugfixes
+1\.0\.2 - 2025/11/20 - bugfixes
+
+- Fixed timezone issues, timezone now matches system
+- Fixed analytics calculations, data no longer skewered by timezones
+- Fixed chart displaying incorrect date names
+
+1\.0\.1 - 2025/11/19 - bugfixes
 - Replaced `setInterval` with `Date.now()` timestamp calculations
 - focus timer no longer stops running when window is minimized
 
-1\.0\.0 - Created Study Planner
+1\.0\.0 - 2025/11/18 - Created Study Planner
 
 
 
