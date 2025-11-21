@@ -232,7 +232,7 @@
             };
 
             const addFocusSession = (duration) => {
-                const today = new Date().toISOString().split('T')[0];
+                const today = new Date().toLocaleDateString('en-CA');
                 setFocusSessions([...focusSessions, {
                     date: today,
                     duration: duration,
@@ -264,12 +264,12 @@
             };
 
             const getTasksDueToday = () => {
-                const today = new Date().toISOString().split('T')[0];
+                const today = new Date().toLocaleDateString('en-CA');
                 return getAllTasks().filter(task => task.dueDate === today && !task.completed);
             };
 
             const getOverdueTasks = () => {
-                const today = new Date().toISOString().split('T')[0];
+                const today = new Date().toLocaleDateString('en-CA');
                 return getAllTasks().filter(task => task.dueDate < today && !task.completed);
             };
 
@@ -459,35 +459,39 @@
         function FocusTimer({ onSessionComplete }) {
             const [isRunning, setIsRunning] = useState(false);
             const [elapsedSeconds, setElapsedSeconds] = useState(0);
-            const [startTime, setStartTime] = useState(null);
+            // Store when timer was started (for current session)
+            const [sessionStartTime, setSessionStartTime] = useState(null);
+            // Store total accumulated time from previous sessions (when paused/resumed)
+            const [accumulatedSeconds, setAccumulatedSeconds] = useState(0);
             const intervalRef = useRef(null);
 
             useEffect(() => {
                 if (isRunning) {
-                    // Store the start time when timer begins
-                    if (!startTime) {
-                        setStartTime(Date.now() - (elapsedSeconds * 1000));
+                    // When starting, record exactly when we started
+                    if (!sessionStartTime) {
+                        setSessionStartTime(Date.now());
                     }
 
                     // Update display every 100ms for smooth counting
-                    // Calculate elapsed time based on actual timestamps (immune to throttling)
+                    // Calculate elapsed time based on REAL timestamps, not interval counts
                     intervalRef.current = setInterval(() => {
                         const now = Date.now();
-                        const elapsed = Math.floor((now - (startTime || now)) / 1000);
-                        setElapsedSeconds(elapsed);
+                        // Time since this session started + any accumulated time from before
+                        const currentSessionSeconds = Math.floor((now - sessionStartTime) / 1000);
+                        setElapsedSeconds(accumulatedSeconds + currentSessionSeconds);
                     }, 100);
                 } else {
                     if (intervalRef.current) {
                         clearInterval(intervalRef.current);
                     }
                 }
-                
+
                 return () => {
                     if (intervalRef.current) {
                         clearInterval(intervalRef.current);
                     }
                 };
-            }, [isRunning, startTime]);
+            }, [isRunning, sessionStartTime, accumulatedSeconds]);
 
             const formatTime = (totalSeconds) => {
                 const hours = Math.floor(totalSeconds / 3600);
@@ -497,9 +501,12 @@
             };
 
             const handleToggle = () => {
-                if (!isRunning) {
-                    // Starting - set the start time
-                    setStartTime(Date.now() - (elapsedSeconds * 1000));
+                if (isRunning) {
+                    // PAUSING: Save how much time we've accumulated so far
+                    setAccumulatedSeconds(elapsedSeconds);
+                    setSessionStartTime(null); // Reset session start
+                } else {
+                    // STARTING/RESUMING: Will set sessionStartTime in useEffect
                 }
                 setIsRunning(!isRunning);
             };
@@ -510,7 +517,8 @@
                 }
                 setIsRunning(false);
                 setElapsedSeconds(0);
-                setStartTime(null);
+                setSessionStartTime(null);
+                setAccumulatedSeconds(0);
             };
 
             return (
@@ -519,7 +527,6 @@
                         <div>
                             <h2 className="text-xl font-bold mb-2">Focus Session</h2>
                             <div className="text-4xl font-mono font-bold">{formatTime(elapsedSeconds)}</div>
-                            <p className="text-sm text-white/70 mt-1">Timer keeps running even when app is in background</p>
                         </div>
                         <div className="flex gap-3">
                             <button
@@ -1121,7 +1128,7 @@
 
             const days = getDaysInMonth(currentDate);
             const monthName = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-            const today = new Date().toISOString().split('T')[0];
+            const today = new Date().toLocaleDateString('en-CA');
 
             return (
                 <div className="bg-white rounded-2xl shadow-lg p-6">
@@ -1315,7 +1322,7 @@
                     for (let i = days - 1; i >= 0; i--) {
                         const date = new Date();
                         date.setDate(date.getDate() - i);
-                        dateRange.push(date.toISOString().split('T')[0]);
+                        dateRange.push(date.toLocaleDateString('en-CA'));
                     }
 
                     const dailyTotals = dateRange.map(date => {
@@ -1328,7 +1335,7 @@
                         type: 'bar',
                         data: {
                             labels: dateRange.map(date => {
-                                const d = new Date(date);
+                                const d = new Date(date + 'T12:00:00');
                                 return timeframe === 'week' 
                                     ? d.toLocaleDateString('en-US', { weekday: 'short' })
                                     : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
@@ -1373,7 +1380,7 @@
             const getTotalTime = (days) => {
                 const cutoff = new Date();
                 cutoff.setDate(cutoff.getDate() - days);
-                const cutoffStr = cutoff.toISOString().split('T')[0];
+                const cutoffStr = cutoff.toLocaleDateString('en-CA');
                 
                 return focusSessions
                     .filter(s => s.date >= cutoffStr)
@@ -1391,7 +1398,7 @@
                 return `${hours}h ${minutes}m`;
             };
 
-            const todayTotal = getTotalTime(1);
+            const todayTotal = getTotalTime(0);
             const weekTotal = getTotalTime(7);
             const monthTotal = getTotalTime(30);
             const weekAvg = getAveragePerDay(7);
