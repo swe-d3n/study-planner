@@ -1,6 +1,6 @@
 {
   "name": "study-planner-pro",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A professional study planner desktop application",
   "main": "main.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "build-linux": "electron-builder --linux"
   },
   "keywords": ["study", "planner", "productivity"],
-  "author": "Your Name",
+  "author": "Eden Liang",
   "license": "MIT",
   "devDependencies": {
     "electron": "^28.0.0",
@@ -28,7 +28,8 @@
       "icon.png"
     ],
     "win": {
-      "target": ["nsis"],
+      "target": "portable",
+      "sign": false,
       "icon": "icon.png"
     },
     "mac": {
