@@ -1,7 +1,12 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { autoUpdater } = require('electron-updater');
 const path = require('path');
 
 let mainWindow;
+
+// Configure auto-updater
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
 
 function createWindow() {
   // Create the browser window
@@ -13,11 +18,12 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      enableRemoteModule: false
+      enableRemoteModule: false,
+      preload: path.join(__dirname, 'preload.js')
     },
     icon: path.join(__dirname, 'icon.png'),
     backgroundColor: '#f8fafc',
-    show: false // Don't show until ready
+    show: false
   });
 
   // Load the index.html
@@ -76,7 +82,7 @@ function createWindow() {
     }
   ];
 
-  // Add "Developer" menu for debugging (comment out for production)
+  // Add "Developer" menu for debugging
   if (process.env.NODE_ENV !== 'production') {
     template.push({
       label: 'Developer',
@@ -95,24 +101,64 @@ function createWindow() {
   });
 }
 
-// This method will be called when Electron has finished initialization
+// Auto-updater events
+autoUpdater.on('checking-for-update', () => {
+  console.log('Checking for updates...');
+});
+
+autoUpdater.on('update-available', (info) => {
+  console.log('Update available!', info);
+  mainWindow.webContents.send('update-available', info);
+});
+
+autoUpdater.on('update-not-available', (info) => {
+  console.log('No updates available', info);
+});
+
+autoUpdater.on('error', (err) => {
+  console.error('Update error:', err);
+});
+
+autoUpdater.on('download-progress', (progressObj) => {
+  console.log(`Download speed: ${progressObj.bytesPerSecond} - Downloaded ${progressObj.percent}%`);
+  mainWindow.webContents.send('download-progress', progressObj);
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  console.log('Update downloaded!', info);
+  mainWindow.webContents.send('update-downloaded', info);
+});
+
+// IPC handlers for update actions
+ipcMain.on('download-update', () => {
+  autoUpdater.downloadUpdate();
+});
+
+ipcMain.on('install-update', () => {
+  autoUpdater.quitAndInstall();
+});
+
+// App lifecycle
 app.whenReady().then(() => {
   createWindow();
 
+  // Check for updates 3 seconds after launch
+  setTimeout(() => {
+    console.log('Starting update check...');
+    autoUpdater.checkForUpdates();
+  }, 3000);
+
   app.on('activate', () => {
-    // On macOS, re-create window when dock icon is clicked
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
     }
   });
 });
 
-// Quit when all windows are closed (except on macOS)
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-// Handle app protocol for deep linking (optional)
 app.setAsDefaultProtocolClient('study-planner');
