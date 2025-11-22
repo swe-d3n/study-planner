@@ -1,13 +1,14 @@
 {
   "name": "study-planner-pro",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A professional study planner desktop application",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build-win": "electron-builder --win",
-    "build-mac": "electron-builder --mac",
-    "build-linux": "electron-builder --linux"
+    "build-win": "electron-builder --win --publish never",
+    "build-mac": "electron-builder --mac --publish never",
+    "publish-win": "electron-builder --win --publish always",
+    "publish-mac": "electron-builder --mac --publish always"
   },
   "keywords": ["study", "planner", "productivity"],
   "author": "Eden Liang",
@@ -16,20 +17,28 @@
     "electron": "^28.0.0",
     "electron-builder": "^24.9.1"
   },
+  "dependencies": {
+    "electron-updater": "^6.1.7"
+  },
   "build": {
     "appId": "com.studyplanner.app",
     "productName": "Study Planner Pro",
+    "publish": {
+      "provider": "github",
+      "owner": "swe-d3n",
+      "repo": "study-planner"
+    },
     "directories": {
       "output": "dist"
     },
     "files": [
       "main.js",
+      "preload.js",
       "index.html",
       "icon.png"
     ],
     "win": {
       "target": "portable",
-      "sign": false,
       "icon": "icon.png"
     },
     "mac": {
