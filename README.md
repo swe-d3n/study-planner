@@ -8,11 +8,21 @@ An app partly vibecoded to keep track of upcoming tasks and study time
 
 Future Updates
 
-- Increase number of tasks displayed in calendar (currently 2)
 - Add delete time feature
 - Add collaborative Teams
 - Add separate window for timer
-- Add daily to do (separate from tasks, for reoccuring tasks)
+
+1\.0\.7 - 2025/11/22 - test-update
+- testing auto-updater from v1\.0\.6
+
+1\.0\.6 - 2025/11/22 - auto-update
+- Added auto-update checker for desktop app
+
+1\.0\.5 - 2025/11/22 - minor tweaks
+- Increased number of tasks displayed in calendar
+
+1\.0\.4 - 2025/11/22 - added features
+- Added daily to do list
 
 1\.0\.3 - 2025/11/21 - bugfixes + minor features
 - Fixed wrong overdue counter (timezone error)
