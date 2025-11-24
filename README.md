@@ -14,8 +14,14 @@ Future Updates
 - Clean up delete button (line up)
 - Add weekly summary
 - Add heatmap
+- Project workflows?
+- OPEN TO SUGGESTIONS
 
-1\.0\.8 - 2025/11/23 - minor feature
+1\.0\.9 - 2025/11/24 - bugfix
+- fixed deleting bug; deleting one focus session's time will no longer delete all focus session data
+- Added popup window for deleting confirmation
+
+1\.0\.8 - 2025/11/23 - minor feature **DO NOT USE: DELETING WILL DELETE ALL FOCUS SESSION DATA**
 - added deleting focus sessions in analytics tab
 
 1\.0\.7 - 2025/11/22 - test-update
