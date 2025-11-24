@@ -21,7 +21,7 @@ Future Updates
 - fixed deleting bug; deleting one focus session's time will no longer delete all focus session data
 - Added popup window for deleting confirmation
 
-1\.0\.8 - 2025/11/23 - minor feature **DO NOT USE: DELETING WILL DELETE ALL FOCUS SESSION DATA**
+1\.0\.8 - 2025/11/23 - minor feature **DELETED DUE TO MAJOR BUGS**
 - added deleting focus sessions in analytics tab
 
 1\.0\.7 - 2025/11/22 - test-update
