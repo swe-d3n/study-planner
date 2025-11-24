@@ -8,9 +8,15 @@ An app partly vibecoded to keep track of upcoming tasks and study time
 
 Future Updates
 
-- Add delete time feature
 - Add collaborative Teams
 - Add separate window for timer
+- Add focus / break reminders
+- Clean up delete button (line up)
+- Add weekly summary
+- Add heatmap
+
+1\.0\.8 - 2025/11/22 - minor feature
+- added deleting focus sessions in analytics tab
 
 1\.0\.7 - 2025/11/22 - test-update
 - testing auto-updater from v1\.0\.6
