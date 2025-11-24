@@ -15,7 +15,7 @@ Future Updates
 - Add weekly summary
 - Add heatmap
 
-1\.0\.8 - 2025/11/22 - minor feature
+1\.0\.8 - 2025/11/23 - minor feature
 - added deleting focus sessions in analytics tab
 
 1\.0\.7 - 2025/11/22 - test-update
@@ -55,6 +55,8 @@ Future Updates
 - **Node.js**
 
 ### How to install
+
+**NOTE: DESKTOP APP CURRENTLY ONLY SUPPORTS WINDOWS**
 
 1. **Open terminal** in the `electron-app` folder
 2. **Install dependencies**:
