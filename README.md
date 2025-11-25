@@ -8,13 +8,22 @@ An app partly vibecoded to keep track of upcoming tasks and study time
 
 Future Updates
 
+
+
+
+- Clean up delete button (line up)
+- Add scheduled tasks (repetitive, looped)
+- Make events stand out more
 - Add collaborative Teams
 - Add separate window for timer
 - Add focus / break reminders
-- Clean up delete button (line up)
 - Add weekly summary
 - Add heatmap
-- Project workflows?
+- Auto delete tasks x days after completion
+- Redesign to look more professional
+- Build on macOS and iOS
+- Add cloud syncing
+- Project workflows
 - OPEN TO SUGGESTIONS
 
 1\.0\.9 - 2025/11/24 - bugfix
@@ -116,7 +125,7 @@ electron-app/
 ## 💡 Tips
 
 - **Data Location**: Your data is stored in the app's localStorage. It persists between sessions.
-- **Updates**: To update the app, replace `index.html` with a new version and restart.
+- **Updates**: The app should auto detect when new updates are available 5 seconds after launching. 
 
 ---
 
