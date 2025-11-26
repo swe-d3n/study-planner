@@ -9,22 +9,30 @@ An app partly vibecoded to keep track of upcoming tasks and study time
 
 <details>
 <summary>Future Updates</summary>
+
 <br>
-- Add hourly planner
-- Add scheduled tasks (repetitive, looped)
-- Make events stand out more
-- Add collaborative Teams
-- Add separate window for timer
-- Add focus / break reminders
-- Add weekly summary
-- Add heatmap
-- Auto delete tasks x days after completion
-- Redesign to look more professional
-- Build on macOS and iOS
-- Add cloud syncing
-- Project workflows
-- OPEN TO SUGGESTIONS
+
+<ul>
+
+<li>Add hourly planner</li>
+<li>Add scheduled tasks (repetitive, looped)</li>
+<li>Make events stand out more</li>
+<li>Add collaborative Teams</li>
+<li>Add separate window for timer</li>
+<li>Add focus / break reminders</li>
+<li>Add weekly summary</li>
+<li>Add heatmap</li>
+<li>Auto delete tasks x days after completion</li>
+<li>Redesign to look more professional</li>
+<li>Build on macOS and iOS</li>
+<li>Add cloud syncing</li>
+<li>Project workflows</li>
+<li>OPEN TO SUGGESTIONS</li>
+
+</ul>
+
 </details>
+
 
 
 
