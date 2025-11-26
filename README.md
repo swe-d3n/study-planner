@@ -9,9 +9,6 @@ An app partly vibecoded to keep track of upcoming tasks and study time
 Future Updates
 
 
-
-
-- Clean up delete button (line up)
 - Add hourly planner
 - Add scheduled tasks (repetitive, looped)
 - Make events stand out more
@@ -26,6 +23,11 @@ Future Updates
 - Add cloud syncing
 - Project workflows
 - OPEN TO SUGGESTIONS
+
+
+1\.0\.10 - 2025/11/25 - bugfix + UI improvements
+- cleaned up delete button for time sessions in analytics view
+- Fixed flexbox functionality for analytics tab
 
 1\.0\.9 - 2025/11/24 - bugfix
 - fixed deleting bug; deleting one focus session's time will no longer delete all focus session data
