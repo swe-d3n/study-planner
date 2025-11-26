@@ -6,9 +6,10 @@ An app partly vibecoded to keep track of upcoming tasks and study time
 
 ## Updates
 
-Future Updates
 
-
+<details>
+<summary>Future Updates</summary>
+<br>
 - Add hourly planner
 - Add scheduled tasks (repetitive, looped)
 - Make events stand out more
@@ -23,6 +24,8 @@ Future Updates
 - Add cloud syncing
 - Project workflows
 - OPEN TO SUGGESTIONS
+</details>
+
 
 
 1\.0\.10 - 2025/11/25 - bugfix + UI improvements
