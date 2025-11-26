@@ -12,6 +12,7 @@ Future Updates
 
 
 - Clean up delete button (line up)
+- Add hourly planner
 - Add scheduled tasks (repetitive, looped)
 - Make events stand out more
 - Add collaborative Teams
