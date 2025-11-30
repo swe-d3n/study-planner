@@ -1,6 +1,6 @@
 # Study Planner - Desktop App
 
-An app partly vibecoded to keep track of upcoming tasks and study time
+An app to keep track of upcoming tasks and study time
 
 ---
 
@@ -34,6 +34,10 @@ An app partly vibecoded to keep track of upcoming tasks and study time
 </details>
 
 
+**NOTE** i've stopped working on this repo and moved my work to my other repo "slate". 
+this is because i decided to start using components from shadcn, which required me to restart building
+most of the functions and ui will look really similar in slate, but as of writing this it doesn't support desktop usage
+if you only need to use study-planner on web, check out the other repo
 
 
 1\.0\.10 - 2025/11/25 - bugfix + UI improvements
